@@ -1,0 +1,88 @@
+#/usr/bin/bash
+
+DGDFT_DIR     = /global/u1/l/linlin/project/dgdft
+
+SCALAR = REAL 
+#SCALAR = COMPLEX
+
+# inclues
+BLOPEX_INCLUDE   = -I${DGDFT_DIR}/external/blopex
+
+FFTW_INCLUDE     = -I/opt/fftw/3.3.0.1/x86_64/include
+DGDFT_INCLUDE    = -I${DGDFT_DIR}/include 
+LIBXC_INCLUDE    = -I/usr/common/usg/libxc/1.0/include
+INCLUDES         = ${DGDFT_INCLUDE} ${LIBXC_INCLUDE} ${BLOPEX_INCLUDE} ${FFTW_INCLUDE}
+
+LIBXC_LIB        = /usr/common/usg/libxc/1.0/lib/libxc.a
+BLOPEX_LIB       = ${DGDFT_DIR}/external/blopex/libblopex.a 
+FFTW_LIB         = -L/opt/fftw/3.3.0.1/x86_64/lib -lfftw3_mpi -lfftw3 -lm
+
+DGDFT_LIB    = ${DGDFT_DIR}/src/libdgdft.a
+LIBS         = ${DGDFT_LIB} ${LIBXC_LIB} ${BLOPEX_LIB} ${FFTW_LIB} 
+
+CC           = cc
+CXX          = CC
+FC           = ftn
+LOADER       = CC
+
+AR           = ar 
+ARFLAGS      = rvcu
+# For System V based machine without ranlib, like Cray and SGI,
+# use touch instead.
+#RANLIB      = touch
+RANLIB       = ranlib
+
+RM           = rm
+RMFLAGS      = -f
+
+# Different compiling and linking options.
+#
+MODE	         = release
+
+ifeq ($(MODE), debug)
+  ifeq (${SCALAR}, COMPLEX)
+	  COMMONDEFS   = -DDEBUG=1 -D_USE_COMPLEX_ 
+  else
+	  COMMONDEFS   = -DDEBUG=1
+  endif
+
+  CFLAGS       = -O2 -g ${INCLUDES}
+  FFLAGS       = -O2 -g ${INCLUDES}
+  CXXFLAGS     = -O2 -g ${INCLUDES}
+	CCDEFS       = ${COMMONDEFS}
+	CPPDEFS      = ${COMMONDEFS}
+  LOADOPTS     = ${LIBS}
+endif
+
+ifeq ($(MODE), release)
+  ifeq (${SCALAR}, COMPLEX)
+	  COMMONDEFS   = -DRELEASE -D_USE_COMPLEX_ 
+  else
+	  COMMONDEFS   = -DRELEASE
+  endif
+
+  CFLAGS       = -O3 -w ${INCLUDES}
+  FFLAGS       = -O3 -w ${INCLUDES}
+  CXXFLAGS     = -O3 -w ${INCLUDES}
+	CCDEFS       = ${COMMONDEFS}
+	CPPDEFS      = ${COMMONDEFS}
+  LOADOPTS     = ${LIBS}
+endif
+
+# Compilation replacement rules
+
+%.o: %.c
+	${CC} -c ${CFLAGS} ${CCDEFS} $< 
+%.o: %.cpp
+	${CXX} -c ${CXXFLAGS} ${CPPDEFS} $< 
+%.o: %.f
+	${FC} -c ${FFLAGS} $<
+%.o: %.F
+	${FC} -c ${FFLAGS} $<
+
+# Generate auto-dependencies (for cpp files now)
+%.d: %.cpp
+	@set -e; rm -f $@; \
+	$(CXX) -M $(CXXFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@;\
+	rm -f $@.$$$$

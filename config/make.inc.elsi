@@ -1,0 +1,149 @@
+#/usr/bin/bash
+
+COMPILE_MODE     = release
+#COMPILE_MODE     = debug
+USE_COMPLEX      = 0
+USE_OPENMP       = 0
+USE_PROFILE      = 0
+USE_PEXSI        = 0
+USE_ELSI         = 1
+
+ifeq (${COMPILE_MODE}, release)
+  COMPILE_DEF    = -DRELEASE -DDEBUG=0 
+  COMPILE_FLAG   = -g -O0 -w -no-ipo
+  COMPILE_FLAG   = -g -fast -w -no-ipo
+endif
+ifeq (${COMPILE_MODE}, debug)
+  COMPILE_DEF    = -DDEBUG=1 -DCOREDUMPER
+  COMPILE_FLAG   = -g -O2 -w -no-ipo
+endif
+
+ifeq (${USE_COMPLEX}, 1)
+  SCALAR_DEF    = -DCOMPLEXSCALAR
+endif
+
+
+ifeq (${USE_OPENMP}, 1)
+  OPENMP_DEF   = -DOPENMP -DFFTWOPENMP
+  # Intel compiler 
+  OPENMP_FLAG  = -openmp -I${MKLROOT}/include
+  OPENMP_FLAG  = -fopenmp
+endif
+
+ifeq (${USE_PROFILE}, 1)
+	PROFILE_FLAG  = -g -pg
+endif
+
+ifeq (${USE_ELSI}, 1)
+
+  PEXSI_DEF        = -DPEXSI -D ELSI
+  PEXSI_DIR        = /global/homes/j/jiawl/ELSI/elsi-interface/src/PEXSI
+  DSUPERLU_DIR     = /global/homes/j/jiawl/cori/Libs/SuperLU_DIST_5.1.3
+  PARMETIS_DIR     = /global/homes/j/jiawl/cori/Libs
+  METIS_DIR        = ${PARMETIS_DIR}
+  PEXSI_INCLUDE    = -I$(PEXSI_DIR)/include
+  DSUPERLU_LIB     = ${DSUPERLU_DIR}/lib/libsuperlu_dist_5.1.3.a
+  METIS_LIB        = ${METIS_DIR}/libparmetis.a  ${METIS_DIR}/libmetis.a 
+  PEXSI_LIB        = ${PEXSI_SRC_LIB} ${DSUPERLU_LIB} ${PARMETIS_LIB}  ${METIS_LIB} 
+
+  ELSI_HOME        =  /global/homes/j/jiawl/ELSI/elsi-interface
+  ELSI_INCLUDE     = -I${ELSI_HOME}/include
+  ELSI_LIB         = ${ELSI_HOME}/lib/libelsi.a \
+                     ${ELSI_HOME}/lib/libOMM.a \
+                     ${ELSI_HOME}/lib/libMatrixSwitch.a \
+                     ${ELSI_HOME}/lib/libpspblas.a \
+                     ${ELSI_HOME}/lib/libelpa.a\
+                     ${ELSI_HOME}/lib/libpexsi.a
+endif
+
+ifeq (${USE_PEXSI}, 1)
+  PEXSI_DEF        = -DPEXSI
+  PEXSI_DIR        = /global/homes/j/jiawl/cori/PEXSI
+  DSUPERLU_DIR     = /global/homes/j/jiawl/cori/Libs/SuperLU_DIST_5.1.3
+  METIS_DIR        = /global/homes/j/jiawl/cori/Libs
+  SCOTCH_DIR       = /project/projectdirs/m1027/PEXSI/libpexsi_edison
+
+  PEXSI_INCLUDE    = -I$(PEXSI_DIR)/include
+  PEXSI_SRC_LIB    = ${PEXSI_DIR}/src/libpexsi_cori.a
+  DSUPERLU_LIB     = ${DSUPERLU_DIR}/lib/libsuperlu_dist_5.1.3.a
+  SCOTCH_LIB       = -L${SCOTCH_DIR} -lptscotchparmetis -lptscotch -lptscotcherr -lscotch
+  METIS_LIB        = ${METIS_DIR}/libparmetis.a  ${METIS_DIR}/libmetis.a 
+  PEXSI_LIB        = ${PEXSI_SRC_LIB} ${DSUPERLU_LIB} ${SCOTCH_LIB}  ${METIS_LIB} 
+  PEXSI_LIB        = ${PEXSI_SRC_LIB} ${DSUPERLU_LIB} ${METIS_LIB} 
+endif
+
+
+DGDFT_DIR     = /global/homes/j/jiawl/ELSI/new_dgdft
+#COREDUMPER_DIR = /global/home/users/wjia/shared_libraries/coredumper-1.2.1/build
+
+
+# inclues
+BLOPEX_INCLUDE   = -I${DGDFT_DIR}/external/blopex
+FFTW_INCLUDE     = -I/opt/fftw/3.3.0.1/x86_64/include
+DGDFT_INCLUDE    = -I${DGDFT_DIR}/include 
+LIBXC_INCLUDE    = -I/global/homes/j/jiawl/2edison/software/libxc/include
+#COREDUMPER_INCLUDE = -I${COREDUMPER_DIR}/include
+INCLUDES         = ${DGDFT_INCLUDE} ${PEXSI_INCLUDE} ${LIBXC_INCLUDE} ${BLOPEX_INCLUDE} ${FFTW_INCLUDE} ${ELSI_INCLUDE}
+
+# Libraries
+LIBXC_LIB        = /global/homes/j/jiawl/2edison/software/libxc/lib/libxc.a
+FFTW_LIB         = -lfftw3_mpi -lfftw3 
+#MKL_LIB         = -mkl=cluster
+MKL_LIB          = ${MKLROOT}/lib/intel64/libmkl_scalapack_lp64.a -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_intel_thread.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_blacs_openmpi_lp64.a -Wl,--end-group -liomp5 -lpthread -lm -ldl
+MKL_LIB          = -L/global/software/sl-6.x86_64/modules/intel/2013_sp1.4.211/openmpi/1.6.5-intel/lib -lmpi_f90 ${MKLROOT}/lib/intel64/libmkl_scalapack_lp64.a -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_intel_thread.a ${MKLROOT}/lib/intel64/libmkl_core.a ${MKLROOT}/lib/intel64/libmkl_blacs_openmpi_lp64.a -Wl,--end-group -liomp5 -lpthread -lm -ldl
+MKL_LIB          = -mkl=cluster
+
+#COREDUMPER_LIB   = ${COREDUMPER_DIR}/lib/libcoredumper.a
+
+
+DGDFT_LIB    = ${DGDFT_DIR}/src/libdgdft.a
+LIBS         = ${DGDFT_LIB} ${ELSI_LIB} ${PEXSI_LIB}  ${LIBXC_LIB} ${FFTW_LIB}  ${COREDUMPER_LIB}  ${MKL_LIB}
+
+CC           = cc
+CXX          = CC
+FC           = ftn
+LOADER       = CC
+
+AR           = ar
+ARFLAGS      = rvcu
+# For System V based machine without ranlib, like Cray and SGI,
+# use touch instead.
+#RANLIB      = touch
+RANLIB       = ranlib
+
+RM           = rm
+RMFLAGS      = -f
+
+# Different compiling and linking options.
+#
+
+
+CFLAGS       = ${COMPILE_FLAG} ${OPENMP_FLAG} ${PROFILE_FLAG} ${INCLUDES}
+FFLAGS       = ${COMPILE_FLAG} ${OPENMP_FLAG} ${PROFILE_FLAG} ${INCLUDES}
+CXXFLAGS     = ${COMPILE_FLAG} ${OPENMP_FLAG} ${PROFILE_FLAG} ${INCLUDES} 
+CCDEFS       = ${COMPILE_DEF} ${PEXSI_DEF} ${SCALAR_DEF} ${OPENMP_DEF}
+CPPDEFS      = ${COMPILE_DEF} ${PEXSI_DEF} ${SCALAR_DEF} ${OPENMP_DEF}
+LOADOPTS     = ${OPENMP_FLAG} ${PROFILE_FLAG} ${LIBS} 
+
+
+# Compilation replacement rules
+
+%.o: %.c
+	${CC} -c ${CFLAGS} ${CCDEFS} $< 
+%.o: %.cpp
+	${CXX} -c ${CXXFLAGS} ${CPPDEFS} $< 
+%.o: %.f
+	${FC} -c ${FFLAGS} $<
+%.o: %.F
+	${FC} -c ${FFLAGS} $<
+%.o: %.f90
+	${FC} -c ${FFLAGS} $<
+%.o: %.F90
+	${FC} -c ${FFLAGS} $<
+
+# Generate auto-dependencies (for cpp files now)
+%.d: %.cpp
+	@set -e; rm -f $@; \
+	$(CXX) -MM $(CXXFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@;\
+	rm -f $@.$$$$

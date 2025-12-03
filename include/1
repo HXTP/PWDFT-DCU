@@ -1,0 +1,879 @@
+Only in .: 1
+diff ./cublas.hpp ../../dghf_last/include/cublas.hpp
+47,49d46
+< #ifndef __HIP_PLATFORM_HCC__
+< #define __HIP_PLATFORM_HCC__
+< #endif
+54,56c51,53
+< #include <hip/hip_runtime.h>
+< //#include <cuda.h>
+< #include <hipblas/hipblas.h>
+---
+> #include <cuda_runtime.h>
+> #include <cuda.h>
+> #include "cublas_v2.h"
+58,59c55
+< #include "cuda_utils.h"
+< extern hipblasHandle_t hcublas;
+---
+> extern cublasHandle_t hcublas;
+69,75c65,66
+< #if 0 //rocm-3.3
+< typedef hip_complex_number<float>    scomplex;
+< typedef hip_complex_number<double>   dcomplex;
+< #endif
+< 
+< typedef hipblasComplex scomplex;
+< typedef hipblasDoubleComplex dcomplex;
+---
+> typedef  cuComplex         scomplex;
+> typedef  cuDoubleComplex   dcomplex;
+80,82d70
+< 
+< //rocblas_status rocblas_set_atomics_mode(rocblas_handle handle, rocblas_atomics_mode atomics_mode)
+< 
+87c75
+<             ( hipblasOperation_t transA, hipblasOperation_t transB, Int m, Int n, Int k,
+---
+>             ( cublasOperation_t transA, cublasOperation_t transB, Int m, Int n, Int k,
+92c80
+<            ( hipblasOperation_t transA, hipblasOperation_t transB, Int m, Int n, Int k,
+---
+>            ( cublasOperation_t transA, cublasOperation_t transB, Int m, Int n, Int k,
+95,103d82
+<  void Geam 
+<            ( hipblasOperation_t transA, hipblasOperation_t transB, Int m, Int n,
+<             const double *alpha, const double* A, Int lda, double *beta, const double* B, Int ldb,
+<             double* C, Int ldc );
+<  void Gemv 
+<            ( hipblasOperation_t transA, Int m, Int n,
+<             const double *alpha, const double* A, Int lda, const double* x, Int incx,
+<             double *beta,              double* y, Int incy );
+< #ifdef _COMPLEX_
+112d90
+< #endif
+114c92
+<            ( hipblasOperation_t transA, hipblasOperation_t transB, Int m, Int n, Int k,
+---
+>            ( cublasOperation_t transA, cublasOperation_t transB, Int m, Int n, Int k,
+116a95
+> 
+118c97
+<            ( hipblasOperation_t transa, hipblasOperation_t transb, int m, int n, int k, const void *alpha, const void *A, hipblasDatatype_t Atype, int lda, const void *B, hipblasDatatype_t Btype, int ldb, const void *beta, void *C, hipblasDatatype_t Ctype, int ldc, hipblasDatatype_t computeType, hipblasGemmAlgo_t algo);
+---
+>            ( cublasOperation_t transa, cublasOperation_t transb, int m, int n, int k, const void *alpha, const void *A, cudaDataType_t Atype, int lda, const void *B, cudaDataType_t Btype, int ldb, const void *beta, void *C, cudaDataType_t Ctype, int ldc, cudaDataType_t computeType, cublasGemmAlgo_t algo);
+120,121c99,100
+< void batched_Gemm( hipblasOperation_t transA, hipblasOperation_t transB, int m, int n, int k, const double *alpha, double *A, int lda, double *B, int ldb, const double *beta, double *C, int ldc, int batchCount, int x, int y,int z);
+< void batched_Gemm6( hipblasOperation_t transA, hipblasOperation_t transB, int m, int n, int k, const double *alpha, double *A, int lda, double *B, int ldb, const double *beta, double *C, int ldc, int batchCount, int x, int y, int z, 
+---
+> void batched_Gemm( cublasOperation_t transA, cublasOperation_t transB, int m, int n, int k, const double *alpha, double *A, int lda, double *B, int ldb, const double *beta, double *C, int ldc, int batchCount, int x, int y,int z);
+> void batched_Gemm6( cublasOperation_t transA, cublasOperation_t transB, int m, int n, int k, const double *alpha, double *A, int lda, double *B, int ldb, const double *beta, double *C, int ldc, int batchCount, int x, int y, int z, 
+131d109
+< #if 1
+137,146c115,116
+<  void ScalP (hipblasHandle_t &plan, int n, const float *alpha, float *x, int incx);
+<  void ScalP (hipblasHandle_t &plan, int n, const double *alpha, double *x, int incx);
+<  void ScalP (hipblasHandle_t &plan, int n, const scomplex *alpha, scomplex *x, int incx);
+<  void ScalP (hipblasHandle_t &plan, int n, const float *alpha, scomplex *x, int incx);
+<  void ScalP (hipblasHandle_t &plan, int n, const dcomplex *alpha, dcomplex *x, int incx);
+<  void ScalP (hipblasHandle_t &plan, int n, const double *alpha, dcomplex *x, int incx);
+< 
+< #endif
+< void Axpy( int n, const dcomplex * alpha, const dcomplex * x, int incx, dcomplex * y, int incy);
+< void Axpy( int n, const scomplex * alpha, const scomplex * x, int incx, scomplex * y, int incy);
+---
+> void Axpy( int n, const cuDoubleComplex * alpha, const cuDoubleComplex * x, int incx, cuDoubleComplex * y, int incy);
+> void Axpy( int n, const cuComplex * alpha, const cuComplex * x, int incx, cuComplex * y, int incy);
+150,151c120,121
+<  void Trsm ( hipblasSideMode_t side, hipblasFillMode_t uplo, hipblasOperation_t trans, 
+<              hipblasDiagType_t diag, int m, int n, const float *alpha,  const float *A,  
+---
+>  void Trsm ( cublasSideMode_t side, cublasFillMode_t uplo, cublasOperation_t trans, 
+>              cublasDiagType_t diag, int m, int n, const float *alpha,  const float *A,  
+153,154c123,124
+<  void Trsm ( hipblasSideMode_t side, hipblasFillMode_t uplo, hipblasOperation_t trans, 
+<              hipblasDiagType_t diag, int m, int n, const double *alpha, const double *A, 
+---
+>  void Trsm ( cublasSideMode_t side, cublasFillMode_t uplo, cublasOperation_t trans, 
+>              cublasDiagType_t diag, int m, int n, const double *alpha, const double *A, 
+156d125
+< #ifdef _COMPLEX_
+163d131
+< #endif
+diff ./cuda_errors.hpp ../../dghf_last/include/cuda_errors.hpp
+7,10c7,8
+< #ifndef __HIP_PLATFORM_HCC__
+< #define __HIP_PLATFORM_HCC__
+< //#ifndef _CUDA_ERRORS_HPP__
+< //#define _CUDA_ERRORS_HPP__
+---
+> #ifndef _CUDA_ERRORS_HPP__
+> #define _CUDA_ERRORS_HPP__
+13,15c11,12
+< #include <hipblas/hipblas.h>
+< #include <hip/hip_runtime.h>
+< #include <rocfft/rocfft.h>
+---
+> #include <cublas_v2.h>
+> #include <cufft.h>
+21,22c18,19
+< char *cublasGetErrorString(hipblasStatus_t error);
+< char *cufftGetErrorString(rocfft_status error);
+---
+> char *cublasGetErrorString(cublasStatus_t error);
+> char *cufftGetErrorString(cufftResult error);
+diff ./cuda_utils.h ../../dghf_last/include/cuda_utils.h
+9,11d8
+< #ifndef __HIP_PLATFORM_HCC__
+< #define __HIP_PLATFORM_HCC__
+< #endif
+16,21c13,16
+< //#include <cuda.h>
+< //#include <hip/hip_runtime.h>
+< #include <hip/hip_runtime.h>
+< #include <rocfft/rocfft.h>
+< #include <hipblas/hipblas.h>
+< #include <hip/hip_complex.h>
+---
+> #include <cuda.h>
+> #include <cuda_runtime.h>
+> #include <cufft.h>
+> #include "cuComplex.h"
+24,26c19,21
+< #define CPU2GPU hipMemcpyHostToDevice 
+< #define GPU2CPU hipMemcpyDeviceToHost 
+< #define GPU2GPU hipMemcpyDeviceToDevice 
+---
+> #define CPU2GPU cudaMemcpyHostToDevice 
+> #define GPU2CPU cudaMemcpyDeviceToHost 
+> #define GPU2GPU cudaMemcpyDeviceToDevice 
+28,31c23
+< typedef  double2 cuDoubleComplex;
+< //typedef  hipDoubleComplex cuDoubleComplex;
+< //typedef  hipComplex cuComplex;
+< typedef  float2 cuComplex;
+---
+> 
+37c29
+< /*
+---
+> 
+39,40c31,32
+< hipError_t err = function; \
+< if (err != hipSuccess) \
+---
+> cudaError_t err = function; \
+> if (err != cudaSuccess) \
+42c34
+<   __FILE__,  __LINE__, hipGetErrorString(err)); \
+---
+>   __FILE__,  __LINE__, cudaGetErrorString(err)); \
+44c36
+< */
+---
+> 
+120,121c112
+< //typedef  hipDoubleComplex cuDoubleComplex;
+< //typedef  hipFloatComplex cuComplex;
+---
+> 
+142,147d132
+< // xmqin 20220606
+< void cuda_setValue_stream( const hipStream_t stream, float* dev, float val,  int len );  
+< void cuda_setValue_stream( const hipStream_t stream, double* dev, double val, int len );
+< void cuda_setValue_stream( const hipStream_t stream, cuDoubleComplex* dev, cuDoubleComplex val, int len );
+< void cuda_setValue_stream ( const hipStream_t stream, cuComplex* dev, cuComplex val, int len );  
+< 
+151,155d135
+< //xmqin20220606
+< void cuda_memcpyAsync_CPU2GPU( const hipStream_t stream, void *gpu,  void * cpu, size_t size );
+< void cuda_memcpyAsync_GPU2CPU( const hipStream_t stream, void *cpu,  void * gpu, size_t size );
+< void cuda_memcpyAsync_GPU2GPU( const hipStream_t stream, void * dest, void * src, size_t size);
+< 
+160,164d139
+< 
+< //xmqin 20220606
+< void cuda_interpolate_wf_C2F_stream(const hipStream_t stream, cuDoubleComplex * coarse_psi, cuDoubleComplex * fine_psi, int * index, int len, double factor); 
+< void cuda_interpolate_wf_F2C_stream(const hipStream_t stream, cuDoubleComplex * fine_psi, cuDoubleComplex * coarse_psi, int * index, int len, double factor); 
+< 
+167,171d141
+< 
+< //xmqin 20220606
+< void cuda_laplacian_stream( const hipStream_t stream, cuDoubleComplex* psi, double * gkk, int len);
+< void cuda_vtot_stream( const hipStream_t stream, double* psi, double * vtot, int len); 
+< 
+175,178d144
+< //xmqin 20220606
+< void cuda_calculate_nonlocal_stream( const hipStream_t stream, double * psiUpdate, double * psi, double * NL, int * index, int * parts,  double * atom_weight, double * weight, int blocks);
+< void cuda_teter_stream( const hipStream_t stream, cuDoubleComplex* psi, double * vtot, int len);
+< 
+194,208d159
+< //--------------by lijl 20210604
+< void cuda_X_Equal_XP( double * X, double * P, int row, int col);
+< void cuda_FourDotProduct(double * BasisTemp, double * LGLWeight, double * vtot, double * Basis, int row, int col);
+< void cuda_XTemp_Equal_XP( double * XTemp, double *X, double * P, int row, int col);
+< void cuda_localMat2(double * localMatTemp4, double * localMatTemp3, double * localMatTemp2, double *localMatTemp1, double penaltyAlpha, int row, int col);
+< void cuda_localMat(double * localMatTemp7, double * localMatTemp6, double * localMatTemp5, double * localMatTemp4, double * localMatTemp3, double * localMatTemp2, double *localMatTemp1, double penaltyAlpha, int row, int col);
+< void cuda_InnerProduct(double * basis, double * coef, double * weight, int * Idx, double * Val, int * basisLGLIdx, int numLGLGrid, int numBasis, int idxSize);
+< void cuda_sqrt(double * S, int numBasis);
+< void cuda_sqrt(double *odata, double *idata, int len);
+< void cuda_division(double * Basis, double * LGLWeight, int row, int col);
+< void cuda_RhoLGL(double * localRhoLGLTmp, double * localBasisRow, double * localDM, int numBasisTotal, int heightLocal, int idxSta);
+< void cuda_transpose3D_xyz2yxz(double *Y, double *X, unsigned int n1, unsigned int n2, unsigned int n3);
+< void transpose3D_revised_xyz2yxz_device( double *Y, double *X,
+<     unsigned int n1, unsigned int n2, unsigned int n3 );
+< //--------------by lijl
+212,214d162
+< //transpose3d
+< void cut_transpose3d( double*  output, const double* input,
+<                       const int n0, const int n1, const int n2);
+diff ./cu_nummat.hpp ../../dghf_last/include/cu_nummat.hpp
+114c114
+< typedef cuNumMat<double2>  cuCpxNumMat;
+---
+> typedef cuNumMat<Complex>  cuCpxNumMat;
+diff ./cu_numtns_decl.hpp ../../dghf_last/include/cu_numtns_decl.hpp
+106c106
+< typedef cuNumTns<double2>    cuCpxNumTns;
+---
+> typedef cuNumTns<Complex>    cuCpxNumTns;
+diff ./cu_numvec_decl.hpp ../../dghf_last/include/cu_numvec_decl.hpp
+102c102,103
+< typedef cuNumVec<double2>    cuCpxNumVec;
+---
+> //typedef cuNumVec<Complex>    cuCpxNumVec;
+> typedef cuNumVec<cuDoubleComplex>    cuCpxNumVec;
+diff ./cu_numvec_impl.hpp ../../dghf_last/include/cu_numvec_impl.hpp
+304,310d303
+< //xmqin 20220606
+< template <class F> inline void SetValueStream(hipStream_t& stream, cuNumVec<F>& vec, F val )
+< {
+<   // note, cuda setValue only works for float and double.
+<   cuda_setValue_stream(stream, vec.data_, val, vec.m_);
+< }
+< 
+diff ./cusolver.hpp ../../dghf_last/include/cusolver.hpp
+48,52d47
+< 
+< #ifndef __HIP_PLATFORM_HCC__
+< #define __HIP_PLATFORM_HCC__
+< #endif
+< 
+55a51,52
+> #include <cuda_runtime.h>
+> #include <cusolverDn.h>
+57,60c54
+< #include <hip/hip_runtime.h>
+< #include <rocsolver/rocsolver.h>
+< 
+< extern rocsolver_handle cusolverH;
+---
+> extern cusolverDnHandle_t cusolverH;
+70,71c64,65
+< //typedef  cuComplex         scomplex;
+< //typedef  cuDoubleComplex   dcomplex;
+---
+> typedef  cuComplex         scomplex;
+> typedef  cuDoubleComplex   dcomplex;
+79,81c73
+< void Syev( char uplo, Int n, double *A, Int lda, double *eigs);
+< 
+< //void Potrf( char uplo, Int n, cuDoubleComplex * A, Int lda );
+---
+> void Potrf( char uplo, Int n, cuDoubleComplex * A, Int lda );
+83c75
+< //void Syevd( char jobz, char uplo, Int n, double *A, Int lda, double *eigs);
+---
+> void Syevd( char jobz, char uplo, Int n, double *A, Int lda, double *eigs);
+85c77
+< //void Syevd( char jobz, char uplo, Int n, cuDoubleComplex *A, Int lda, double *eigs);
+---
+> void Syevd( char jobz, char uplo, Int n, cuDoubleComplex *A, Int lda, double *eigs);
+87c79
+< //void Lacpy(char uplo, Int m, Int n, const double * A , Int lda, double *B, Int ldb);
+---
+> void Lacpy(char uplo, Int m, Int n, const double * A , Int lda, double *B, Int ldb);
+diff ./dgdft.hpp ../../dghf_last/include/dgdft.hpp
+50,55c50,52
+< #include    "blas.hpp"
+< #ifdef GPU
+< #include    "cublas.hpp"
+< #endif
+< #include    "lapack.hpp"
+< #include    "scalapack.hpp"
+---
+> #include  "blas.hpp"
+> #include  "lapack.hpp"
+> #include  "scalapack.hpp"
+diff ./eigensolver.hpp ../../dghf_last/include/eigensolver.hpp
+106,115d105
+< 
+< #ifdef _COMPLEX_
+<   void PPCGSolveComplex(
+<       Int          numEig,
+<       Int          scfIter,
+<       Int          eigMaxIter,
+<       Real         eigMinTolerance,
+<       Real         eigTolerance );
+< #else
+< 
+136d125
+< #endif
+158,166d146
+< 
+<   void PPCGSolveReal(
+<       Int          numEig,
+<       Int          scfIter, 
+<       Int          eigMaxIter,
+<       Real         eigMinTolerance,
+<       Real         eigTolerance,
+<       bool         isSerial );
+< 
+168d147
+< 
+diff ./fourier.hpp ../../dghf_last/include/fourier.hpp
+53,57d52
+< #ifdef GPU
+< #include "cu_numvec_impl.hpp"
+< #include <assert.h>
+< #include <hipfft/hipfft.h>
+< #endif
+87,100c82
+< #ifdef GPU
+<   hipfftHandle cuPlanR2C[NSTREAM];
+<   hipfftHandle cuPlanR2CFine[NSTREAM];
+<   hipfftHandle cuPlanC2R[NSTREAM];
+<   hipfftHandle cuPlanC2RFine[NSTREAM];
+<   hipfftHandle cuPlanC2CFine[NSTREAM];
+<   hipfftHandle cuPlanC2C[NSTREAM];
+< 
+<   hipblasHandle_t cuBlasPlanR2C[NSTREAM];
+<   hipblasHandle_t cuBlasPlanR2CFine[NSTREAM];
+<   hipblasHandle_t cuBlasPlanC2R[NSTREAM];
+<   hipblasHandle_t cuBlasPlanC2RFine[NSTREAM];
+<   hipStream_t cuStream[NSTREAM];
+< #endif
+---
+> 
+113a96
+>   
+126a110
+> 
+159a144
+> 
+166,177c151,152
+< };
+< #ifdef GPU
+< void cuFFTExecuteInverse( Fourier& fft, hipfftHandle &plan, int fft_type, cuCpxNumVec &cu_psi_in, cuCpxNumVec &cu_psi_out );
+< void cuFFTExecuteInverse( Fourier& fft, hipfftHandle &plan, int fft_type, cuCpxNumVec &cu_psi_in, cuCpxNumVec &cu_psi_out , int nbands);
+< void cuFFTExecuteInverse2( Fourier& fft, hipfftHandle &plan, int fft_type, cuCpxNumVec &cu_psi_in, cuCpxNumVec &cu_psi_out );
+< void cuFFTExecuteForward( Fourier& fft, hipfftHandle &plan, int fft_type, cuCpxNumVec &cu_psi_in, cuCpxNumVec &cu_psi_out );
+< void cuFFTExecuteForward2( Fourier& fft, hipfftHandle &plan, int fft_type, cuCpxNumVec &cu_psi_in, cuCpxNumVec &cu_psi_out );
+< void cuFFTExecuteInverse( Fourier& fft, hipfftHandle &plan, int fft_type, cuDblNumVec &cu_psi_in, cuDblNumVec &cu_psi_out );
+< void cuFFTExecuteForward( Fourier& fft, hipfftHandle &plan, int fft_type, cuDblNumVec &cu_psi_in, cuDblNumVec &cu_psi_out );
+< 
+< void cuFFTExecuteInverse_stream( Fourier& fft, hipfftHandle &plan, hipblasHandle_t  &planBlas, int fft_type, cuDblNumVec &cu_psi_in, cuDblNumVec &cu_psi_out );
+< void cuFFTExecuteForward_stream( Fourier& fft, hipfftHandle &plan, hipblasHandle_t  &planBlas, int fft_type, cuDblNumVec &cu_psi_in, cuDblNumVec &cu_psi_out );
+---
+>   /// HFX 
+>   void InitializeHFX( const Domain& dm );
+179c154
+< #endif
+---
+> };
+diff ./hamiltonian_dg.hpp ../../dghf_last/include/hamiltonian_dg.hpp
+65,69d64
+< #ifdef GPU
+< #include "cuda_utils.h"
+< #include  "cu_numtns_impl.hpp"
+< #include  "cublas.hpp"
+< #endif
+181a177,178
+> //  std::ofstream  eriOFS;
+> 
+314a312
+> //  DistDblNumMat    basisUniformTotal_;
+317,319d314
+< #ifdef GPU
+<   cuIntNumVec      cu_basisLGLIdx;
+< #endif
+322a318,319
+> //  DistDblNumMat    basisLGLTotal_;
+> 
+356,361c353
+< #ifdef GPU
+<   //std::vector<cuDblNumMat>    cu_DMat_;
+<   cuDblNumMat cu_DMat_x;
+<   cuDblNumMat cu_DMat_y;
+<   cuDblNumMat cu_DMat_z;
+< #endif
+---
+> 
+366,370d357
+< #ifdef GPU
+<   cuDblNumMat cu_LGLToUniformMatFine_x;
+<   cuDblNumMat cu_LGLToUniformMatFine_y;
+<   cuDblNumMat cu_LGLToUniformMatFine_z;
+< #endif
+371a359,360
+>   /// @brief Interpolation matrix from LGL to uniform grid in each
+>   /// element (assuming all the elements are the same). xmqin
+397c386
+< 
+---
+> //
+427a417
+> 
+449,451d438
+< #ifdef GPU
+<   void DiffPsi(const Index3& numGrid, cuDblNumMat& psi, cuDblNumMat& Dpsi, Int d);
+< #endif
+455,458d441
+< #ifdef GPU
+<   void InterpLGLToUniform( const Index3& numLGLGrid, const Index3& numUniformGridFine, 
+<       cuDblNumMat& rhoLGL, cuDblNumMat& rhoUniform );
+< #endif
+461a445,447
+>   void InterpLGLToUniform2( const Index3& numLGLGrid, const Index3& numUniformGrid,
+>       const Real* rhoLGL, Real* rhoUniform );
+> 
+492,497d477
+< //#ifdef GPU
+<   void CalculateDensityDM2( 
+<       DistDblNumVec& rho, 
+<       DistDblNumVec& rhoLGL, 
+<       DistVec<ElemMatKey, NumMat<Real>, ElemMatPrtn>& distDMMat, bool isGPU );
+< //#else
+502c482
+< //#endif
+---
+> 
+532a513
+> //  void UpdateDGMatrix( DistDblNumVec&  vtotLGLDiff,  DistVec<ElemMatKey, NumMat<Real>, ElemMatPrtn>& distHMat );
+682a664,667
+> ///  ERI tensor
+> //  DistVec<ElemMatKey, DblNumFns, ElemMatPrtn>&
+> //    ERI() { return ERI_; }
+> 
+708a694
+> 
+diff ./hamiltonian.hpp ../../dghf_last/include/hamiltonian.hpp
+57,64d56
+< #ifdef GPU
+< #include "cublas.hpp"
+< //#ifdef USE_MAGMA
+< //#include "magma.hpp"
+< //#else
+< //#include "cusolver.hpp"
+< //#endif // ifdef USE_MAGMA
+< #endif  //ifdef GPU
+140a133,135
+>   // EXX variables
+> //  bool                        isHybrid_;
+> //  bool                        isEXXActive_;
+143c138
+<   Real                  screenMu_;
+---
+>   Real                        screenMu_;
+209,211c204
+< #ifdef GPU
+<   virtual void CalculateDensity_GPU( const Spinor &psi, const DblNumVec &occrate, Real &val, Fourier& fft ) = 0;
+< #endif
+---
+> 
+239,243d231
+< #ifdef GPU
+<   virtual void MultSpinor_GPU(Spinor& psi, cuNumTns<Real>& a3, Fourier& fft) = 0;
+<   virtual void MultSpinor_old(Spinor& psi, cuNumTns<Real>& a3, Fourier& fft) = 0;
+<   virtual void ACEOperator_GPU( cuDblNumMat& cu_psi, Fourier& fft, cuDblNumMat& cu_Hpsi) = 0;
+< #endif
+248,252d235
+< #ifdef GPU
+<   virtual void CalculateVexxACE_GPU( Spinor& psi, Fourier& fft ) = 0;
+<   virtual void CalculateVexxACEDF_GPU( Spinor& psi, Fourier& fft, bool isFixColumnDF ) = 0;
+< #endif 
+< 
+364,366d346
+< #ifdef GPU
+<   cuDblNumMat                 cu_vexxProj_; 
+< #endif
+395,397c375
+< #ifdef GPU
+<   virtual void CalculateDensity_GPU( const Spinor &psi, const DblNumVec &occrate, Real &val, Fourier& fft );
+< #endif
+---
+> 
+414,419d391
+< 
+< #ifdef GPU
+<   virtual void MultSpinor_GPU(Spinor& psi, cuNumTns<Real>& a3, Fourier& fft);
+<   virtual void MultSpinor_old(Spinor& psi, cuNumTns<Real>& a3, Fourier& fft);
+<   virtual void ACEOperator_GPU( cuDblNumMat& cu_psi, Fourier& fft, cuDblNumMat& cu_Hpsi) ;
+< #endif
+437,442d408
+< 
+< #ifdef GPU
+<   /// @brief Construct the ACE operator
+<   virtual void CalculateVexxACE_GPU( Spinor& psi, Fourier& fft );
+<   virtual void CalculateVexxACEDF_GPU( Spinor& psi, Fourier& fft, bool isFixColumnDF );
+< #endif
+diff ./iondynamics.hpp ../../dghf_last/include/iondynamics.hpp
+60,66c60,65
+< //modified by  xmqin 20121202
+< //
+< //extern "C"{
+< //Int F2C(lbfgs)( Int *n, Int *m, double *x, double *f, double* g, 
+< //    int *diagco, double *diag, int *iprint, double *eps,
+<  //   double *xtol, double *work, int *iflag );
+< //}
+---
+> 
+> extern "C"{
+> Int F2C(lbfgs)( Int *n, Int *m, double *x, double *f, double* g, 
+>     int *diagco, double *diag, int *iprint, double *eps,
+>     double *xtol, double *work, int *iflag );
+> }
+502,505c501,503
+< //---------------------------------------------
+< //Modified by xmqin
+<   //void LBFGSOpt( Int ionIter );
+< //--------------------------------------
+---
+>   ///
+>   void LBFGSOpt( Int ionIter );
+> 
+diff ./lapack.hpp ../../dghf_last/include/lapack.hpp
+74c74
+< 
+---
+> void Potrs( char uplo, Int n, const double* A, Int lda, Int nrhs, double* B, Int ldb );
+224a225,227
+> 
+> void Lacpy( char uplo, Int m, Int n, const float* A, Int lda,
+>     float* B, Int ldb    );
+diff ./lrtddft.hpp ../../dghf_last/include/lrtddft.hpp
+16,17c16,17
+< 	class LRTDDFT {
+< 	private:
+---
+> class LRTDDFT {
+> private:
+19,44c19,47
+< 		Int               numExtraState_;         //maxncbandtol
+< 		Int               nocc_;                  //maxnvbandtol
+< 		Int               ntot_;                  //real space Corase grid
+<                 Int               ntotR2C_;               //Corase grid	
+<                 Int               numcomponent_ ;         //spinor
+< 		DblNumMat         density_;               //rho
+< 		DblNumVec         eigVal_;                //energy
+< 		Real              vol_;                   //Vol
+<                 Domain            domain_;                //domain
+< 
+< 	public:
+< 		// *********************************************************************
+< 		// Constructor and destructor
+< 		// *********************************************************************
+< 		void Setup(Hamiltonian& ham, Spinor& psi, Fourier& fft,
+< 	            const Domain& dm, int nvband, int ncband);
+< 
+< 		void CalculateLRTDDFT(Hamiltonian& ham, Spinor& psi, Fourier& fft,
+< 			const Domain& dm, int nvband, int ncband);
+< 
+<                 void FFTRtoC(Fourier& fft, Hamiltonian& ham, DblNumMat psiphi,
+<                         DblNumMat& temp, Int ncvband);
+< 
+< 		void Calculatefxc(Fourier& fft, DblNumVec& fxcPz);
+<                
+< 	};
+---
+>   Int               numExtraState_;         //maxncbandtol
+>   Int               nocc_;                  //maxnvbandtol
+>   Int               ntot_;                  //real space Corase grid
+>   Int               ntotR2C_;               //Corase grid	
+>   Int               ntotFine_;              //real space Fine grid
+>   Int               ntotR2CFine_;           //Fine grid	
+>   Int               numcomponent_ ;         //spinor
+>   DblNumMat         density_;               //rho
+>   DblNumVec         eigVal_;                //energy
+>   Real              vol_;                   //Vol
+>   Domain            domain_;                //domain
+> 
+> public:
+>   // *********************************************************************
+>   // Constructor and destructor
+>   // *********************************************************************
+>   void Setup(Hamiltonian& ham, Spinor& psi, Fourier& fft, const Domain& dm);
+> 
+>   void Spectrum(Fourier& fft, DblNumMat psinv, DblNumMat psinc, DblNumMat XX, DblNumVec eigValS, Int nkband);
+> 
+>   void CalculateLRTDDFT(Hamiltonian& ham, Spinor& psi, Fourier& fft, const Domain& dm);
+> 
+>   void CalculateLRTDDFT_ISDF(Hamiltonian& ham, Spinor& psi, Fourier& fft, const Domain& dm);
+> 
+>   void FFTRtoC(Fourier& fft, Hamiltonian& ham, DblNumMat psiphi, DblNumMat& temp, Int ncvband);
+> 
+>   void Calculatefxc(Fourier& fft, DblNumVec& fxcPz);
+> 
+> };
+diff ./magma.hpp ../../dghf_last/include/magma.hpp
+47,49d46
+< #ifndef __HIP_PLATFORM_HCC__
+< #define __HIP_PLATFORM_HCC__
+< #endif
+52,55d48
+< 
+< #ifndef HAVE_HIP
+< #define HAVE_HIP
+< #endif
+68,69c61,62
+< //typedef  cuComplex         scomplex;
+< //typedef  cuDoubleComplex   dcomplex;
+---
+> typedef  cuComplex         scomplex;
+> typedef  cuDoubleComplex   dcomplex;
+diff ./mpi_interf.hpp ../../dghf_last/include/mpi_interf.hpp
+50,56c50
+< #ifdef GPU
+< #ifndef __HIP_PLATFORM_HCC__
+< #define __HIP_PLATFORM_HCC__
+< #endif
+< //#include "cuda.h"
+< #include <hip/hip_runtime.h>
+< #endif
+---
+> 
+121a116,118
+>   Allreduce ( float* sendbuf, float* recvbuf, Int count, MPI_Op op, MPI_Comm comm );
+> 
+> void
+143,146d139
+< #ifdef GPU
+< void 
+<   cuda_setDevice(MPI_Comm comm);
+< #endif
+Only in ../../dghf_last/include/: numfns_decl.hpp
+Only in ../../dghf_last/include/: numfns_impl.hpp
+diff ./numvec_decl.hpp ../../dghf_last/include/numvec_decl.hpp
+0a1,106
+> /*
+>    Copyright (c) 2012 The Regents of the University of California,
+>    through Lawrence Berkeley National Laboratory.  
+> 
+> Authors: Lexing Ying and Lin Lin
+> 
+> This file is part of DGDFT. All rights reserved.
+> 
+> Redistribution and use in source and binary forms, with or without
+> modification, are permitted provided that the following conditions are met:
+> 
+> (1) Redistributions of source code must retain the above copyright notice, this
+> list of conditions and the following disclaimer.
+> (2) Redistributions in binary form must reproduce the above copyright notice,
+> this list of conditions and the following disclaimer in the documentation
+> and/or other materials provided with the distribution.
+> (3) Neither the name of the University of California, Lawrence Berkeley
+> National Laboratory, U.S. Dept. of Energy nor the names of its contributors may
+> be used to endorse or promote products derived from this software without
+> specific prior written permission.
+> 
+> THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+> ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+> WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+> DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+> ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+> (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+> LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+> ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+> (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+> SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+> 
+> You are under no obligation whatsoever to provide any bug fixes, patches, or
+> upgrades to the features, functionality or performance of the source code
+> ("Enhancements") to anyone; however, if you choose to make your Enhancements
+> available either publicly, or directly to Lawrence Berkeley National
+> Laboratory, without imposing a separate written license agreement for such
+> Enhancements, then you hereby grant the following license: a non-exclusive,
+> royalty-free perpetual license to install, use, modify, prepare derivative
+> works, incorporate into other computer software, distribute, and sublicense
+> such enhancements or derivative works thereof, in binary and source code form.
+>  */
+> /// @file numvec_decl.hpp
+> /// @brief  Numerical vector.
+> /// @date 2010-09-27
+> #ifndef _NUMVEC_DECL_HPP_
+> #define _NUMVEC_DECL_HPP_
+> 
+> #include "environment.hpp"
+> 
+> namespace  dgdft{
+> 
+> // Templated form of numerical vectors
+> //
+> // The main advantage of this portable NumVec structure is that it can
+> // either own (owndata == true) or view (owndata == false) a piece of
+> // data.
+> 
+> template <class F> class NumVec
+> {
+> public:
+>   Int  m_;                                // The number of elements 
+>   bool owndata_;                          // Whether it owns the data
+>   F* data_;                               // The pointer for the actual data
+> public:
+>   NumVec(Int m = 0);
+>   NumVec(Int m, bool owndata, F* data);
+>   NumVec(const NumVec& C);
+>   ~NumVec();
+> 
+>   NumVec& operator=(const NumVec& C);
+> 
+>   void Resize ( Int m );
+> 
+>   const F& operator()(Int i) const;  
+>   F& operator()(Int i);  
+>   const F& operator[](Int i) const;
+>   F& operator[](Int i);
+> 
+>   bool IsOwnData() const { return owndata_; }
+> 
+>   F*   Data() const { return data_; }
+> 
+>   Int  m () const { return m_; }
+> 
+>   Int Size() const { return m_; }
+> };
+> 
+> // Commonly used
+> typedef NumVec<bool>       BolNumVec;
+> typedef NumVec<Int>        IntNumVec;
+> typedef NumVec<Real>       DblNumVec;
+> typedef NumVec<Complex>    CpxNumVec;
+> typedef NumVec<float>      FloNumVec;
+> 
+> 
+> // Utilities
+> template <class F> inline void SetValue( NumVec<F>& vec, F val );
+> template <class F> inline Real Energy( const NumVec<F>& vec );
+> template <class F> inline Real findMin( const NumVec<F>& vec );
+> template <class F> inline Real findMax( const NumVec<F>& vec );
+> template <class F> inline void Sort( NumVec<F>& vec );
+> 
+> } // namespace dgdft
+> 
+> #endif // _NUMVEC_DECL_HPP_
+diff ./scf_dg.hpp ../../dghf_last/include/scf_dg.hpp
+407,411d406
+< #ifdef GPU
+<   cuDblNumMat cu_PeriodicUniformToLGLMat_x; 
+<   cuDblNumMat cu_PeriodicUniformToLGLMat_y; 
+<   cuDblNumMat cu_PeriodicUniformToLGLMat_z; 
+< #endif
+513,516c508
+< #ifdef GPU
+<   void scfdg_GeneralChebyStep_GPU(Int eigMaxIter, 
+<       Int filter_order );    
+< #endif
+---
+> 
+518a511
+> 
+522c515
+< 
+---
+>  
+543,546d535
+< #ifdef GPU
+<   void InterpPeriodicUniformToLGL( const Index3& numUniformGrid,
+<       const Index3& numLGLGrid, cuDblNumMat& cu_psiUniform, cuDblNumMat& cu_psiLGL, cuDblNumVec& cu_tmp1, cuDblNumVec& cu_tmp2 );
+< #endif
+diff ./spinor.hpp ../../dghf_last/include/spinor.hpp
+59,64d58
+< #ifdef GPU
+< #include  "cu_numvec_impl.hpp"
+< #include  "cu_numtns_impl.hpp"
+< #include  "cublas.hpp"
+< #endif
+< 
+79,82d72
+< #ifdef GPU
+<   // not use wavefun_ in the GPU implementation.
+<   cuNumTns<Real>   cu_wavefun_;
+< #endif
+87,89d76
+< #ifdef _COMPLEX_
+<   CpxNumMat         G_;
+< #else
+91d77
+< #endif
+118,124d103
+< #ifdef GPU
+<   // Weile, needs further consideration.
+<   Spinor( const Domain &dm, const Int numComponent, const Int numStateTotal, Int numStateLocal,
+<       const bool owndata, Real* data, bool isGPU);
+<   void SetupGPU( const Domain &dm, const Int numComponent, const Int numStateTotal, const Int numStateLocal,
+<       const bool owndata, Real* data );
+< #endif
+157,160d135
+< #ifdef GPU
+<   cuNumTns<Real>& cuWavefun() { return cu_wavefun_; } 
+<   const cuNumTns<Real>& cuWavefun() const { return cu_wavefun_; } 
+< #endif
+216,220d190
+< #ifdef GPU
+<   void AddMultSpinorFineR2C( Fourier& fft, const DblNumVec& vtot, 
+<       const std::vector<PseudoPot>& pseudo, cuNumTns<Real>& a3 );
+<   void AddTeterPrecond( Fourier* fftPtr, cuNumTns<Real>& a3 );
+< #endif
+237,250d206
+< #ifdef GPU
+<   /// @brief Apply the exchange operator to the spinor by solving
+<   /// Poisson like equations
+<   /// EXX: Spinor with exact exchange. 
+<   /// Keeping the names separate is good for now, since the new
+<   /// algorithm requires a different set of input parameters for AddMultSpinor
+<   void AddMultSpinorEXX ( Fourier& fft,
+<       const NumTns<Real>& phi,
+<       const DblNumVec& exxgkkR2CFine,
+<       Real  exxFraction,
+<       Real  numSpin,
+<       const DblNumVec& occupationRate,
+<       cuNumTns<Real>& a3 );
+< #endif
+363,379d318
+< #ifdef GPU
+<   void AddMultSpinorEXXDF3_GPU ( Fourier& fft, 
+<       const NumTns<Real>& phi,
+<       const DblNumVec& exxgkkR2C,
+<       Real  exxFraction,
+<       Real  numSpin,
+<       const DblNumVec& occupationRate,
+<       const Real numMuFac,
+<       const Real numGaussianRandomFac,
+<       const Int numProcScaLAPACKPotrf, 
+<       const Int scaPotrfBlockSize, 
+<       cuDblNumMat & cu_a3,
+<       NumMat<Real>& VxMat, 
+<       bool isFixColumnDF );
+< 
+< #endif
+< 
+diff ./utility.hpp ../../dghf_last/include/utility.hpp
+58,62d57
+< #ifdef GPU
+< #include  "cu_nummat_impl.hpp"
+< #include  "cu_numvec_impl.hpp"
+< #include  "cuda_utils.h"
+< #endif
+1491a1487,1489
+> //  for(Int j=0; j<n; j++)
+> //    for(Int i=0; i<m; i++)
+> //      serialize(val(i,j), os, mask);
+1503a1502,1504
+> //  for(Int j=0; j<n; j++)
+> //    for(Int i=0; i<m; i++)
+> //      deserialize(val(i,j), is, mask);
+1820,1823d1820
+< #ifdef GPU
+< void GPU_AlltoallBackward( cuDblNumMat& A, cuDblNumMat& B, MPI_Comm comm );
+< void GPU_AlltoallForward ( cuDblNumMat& A, cuDblNumMat& B, MPI_Comm comm );
+< #endif

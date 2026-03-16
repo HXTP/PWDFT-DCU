@@ -1,0 +1,704 @@
+mpirank = 0                   
+mpisize = 1                   
+Time for reading the raw input file is 8.78124e-05 [s]
+
+
+*********************************************************************
+Common information
+*********************************************************************
+
+Super cell                           = +2.052499800000e+01 +2.052499800000e+01 +2.052499800000e+01 
+Grid Wavefunction                    = 42                  42                  42                  
+Grid Density                         = 84                  84                  84                  
+Mixing dimension                     = 8                   
+Mixing variable                      = density             
+Mixing DFT type                      = broyden             
+Mixing Hybrid DGDFT type             = broyden             
+Mixing Steplength                    = +6.000000000000e-01
+DGHF Mixing Dimension                = 8                   
+DGHF Mixing Steplength               = +2.000000000000e-01
+DG InnerSCF Mixing variable          = density             
+DG OuterSCF Mixing variable          = potential           
+DG DFT OuterSCF Tolerance            = +1.000000000000e-08
+DG DFT OuterSCF Energy Tolerance     =+1.000000000000e-06
+DG DFT OuterSCF MinIter              = 3                   
+DG DFT OuterSCF MaxIter              = 30                  
+DG DFT InnerSCF Tolerance            = +1.000000000000e-08
+DG DFT InnerSCF MinIter              = 3                   
+DG DFT InnerSCF MaxIter              = 10                  
+DG Hybrid InnerSCF Tolerance         = +1.000000000000e-06
+DG Hybrid InnerSCF MinIter           = 3                   
+DG Hybrid InnerSCF MaxIter           = 30                  
+DG Hybrid OuterSCF MinIter           = 3                   
+DG Hybrid OuterSCF MaxIter           = 30                  
+DG Hybrid OuterSCF Tolerance         = +1.000000000000e-06
+DG Hybrid OuterSCF Energy Tolerance  =+1.000000000000e-06
+DG Hybrid ALBs MaxIter               = 20                  
+DG Hybrid ALBs Tolerance             = +1.000000000000e-06
+DG Hybrid Nested Loop Type           = true    
+Temperature                          = +0.000000000000e+00[K]   
+au2K                                 = +3.157746700000e+05
+Tbeta                                = +inf            
+Temperature2                          = +0.000000000000e+00[K]   
+Extra states                         = 0                   
+Smearing scheme                      = FD                  
+PeriodTable File                     =                     
+Pseudo Type                          = ONCV                
+PW Solver                            = PPCG                
+XC Type                              = XC_HYB_GGA_XC_HSE06 
+Hybrid ACE                           = true    
+Hybrid DF                            = false   
+DGHF ISDF                            = false   
+DGHF ISDF Num Mu                     = +6.000000000000e+00
+Hybrid Active Init                   = false   
+Hybrid Mixing Type                   = pcdiis              
+Hybrid DF Num Mu                     = +6.000000000000e+00
+Hybrid DF Num GaussianRandom         = +2.000000000000e+00
+Hybrid DF Tolerance                  = +1.000000000000e-20
+SCF Outer Tol                        = +1.000000000000e-06
+SCF Outer MaxIter                    = 3                   
+SCF Free Energy Per Atom Tol         = +1.000000000000e-06
+Eig Min Tolerence                    = +1.000000000000e-03
+Eig Tolerence                        = +1.000000000000e-12
+Eig MaxIter                          = 5                   
+Eig Tolerance Dyn                    = false   
+Num unused state                     = 0                   
+EcutWavefunction                     = +2.000000000000e+01
+Density GridFactor                   = +2.000000000000e+00
+Use Atom Density                     = true    
+Use VLocal                           = true    
+RestartDensity                       = false   
+RestartWfn                           = false   
+OutputDensity                        = false   
+OutputPotential                      = false   
+Number of Extra Electron             = 0                   
+
+*********************************************************************
+PWDFT information
+*********************************************************************
+
+SCF Phi MaxIter                      = 3                   
+SCF Phi Tol                          = +1.000000000000e-06
+Hybrid ACE                           = true    
+Hybrid DF                            = false   
+Hybrid Active Init                   = false   
+Hybrid Mixing Type                   = pcdiis              
+Hybrid DF Num Mu                     = +6.000000000000e+00
+Hybrid DF Num GaussianRandom         = +2.000000000000e+00
+Hybrid DF Tolerance                  = +1.000000000000e-20
+EXX div type                         = 1                   
+Subblock size (sbSize) in PPCG       = 1                   
+
+UPF version: 2
+XC_GGA_XC_PBE  XId_ CId_ = 101 130
+
+XC_HYB_GGA_XC_HSE06  XCId = 428
+
+Number of electrons in extend element        = 256                 
+Number of Occupied States                    = 128                 
+Computing the local pseudopotential
+Sum of Pseudocharge                          = +2.560000000000e+02
+Number of Occupied States                    = 128                 
+After adjustment, Sum of Pseudocharge        = +2.560000000000e+02
+Computing the non-local pseudopotential
+Total number of nonlocal pseudopotential = 512                 
+Time for calculating the pseudopotential for the Hamiltonian = 2.34353657633 [s]
+Spinor setup finished.
+pwdft.cpp_1_Bcast9483264
+ m = 74088
+ n = 1
+ p = 128
+computed exxDiv_ = 5.64739489676
+Hybrid mixing parameter  = 0.25
+Hybrid screening length = 0.106
+Time for setting up the exchange for the Hamiltonian part = 0.00337018129358 [s]
+Eigensolver setup finished .
+Use superposition of atomic density as initial guess for electron density.
+Number of electrons in extend element        = 256                 
+Sum of atomic density                        = +2.530612533284e+02
+After adjustment, Sum of atomic density = +2.560000000000e+02
+Time for calculating the atomic density = 1.26046224049 [s]
+SCF setup finished .
+
+*********************************************************************
+Starting regular SCF iteration.
+*********************************************************************
+
+XC_GGA_XC_PBE  XId_ CId_ = 101 130
+
+Re-calculate XC 
+
+*********************************************************************
+SCF iteration # 1
+*********************************************************************
+
+ >>>>>>>>> Calling serial  PPCG  ...
+eigMaxIter = 5 eigTolerance = 1e-06
+
+After 5 PPCG iterations the min res norm is 0.0420049212391. The max res norm is 0.11201391143
+
+Time for iterSpinor       = 11  timeSpinor       = 0.504003051261
+Time for iterGemmT        = 6933  timeGemmT        = 0.144381820501
+Time for iterGemmN        = 3609  timeGemmN        = 0.0300053026876
+Time for iterTrsm         = 11  timeTrsm         = 0.267780302995
+Time for iterPotrf        = 6  timePotrf        = 0.00127897462517
+Time for iterSyevd        = 1  timeSyevd        = 0.00347632415651
+Time for iterSygvd        = 640  timeSygvd        = 0.00849758015829
+Time for iterCPU2DCUCopy  = 1823  timeCPU2DCUCopy  = 1.48847118633
+Time for iterDCU2DCUCopy  = 3591  timeDCU2DCUCopy  = 0.00776964092802
+Time for iterOther        = 3119  timeOther        = 0.0296624231123
+Time for PPCG in PWDFT is 2.66313773295
+
+
+Time for the eigensolver is 2.66469316508 [s]
+
+Time for ham.EigVal() in PWDFT is 1.5500409063e-06 [s]
+
+Time for computing occupation rate in PWDFT is 2.92407930829e-05 [s]
+
+Raw data, sum of density          = 255.999989161
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0502256003965 [s]
+
+Time for computing gradient density in PWDFT is 0.144441692304 [s]
+
+Time for computing XC potential in PWDFT is 0.373873276621 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0699000832828 [s]
+
+Time for computing total potential in PWDFT is 0.00135578672052 [s]
+
+Time for computing energy in PWDFT is 0.00191081175581 [s]
+
+EfreeHarris       = -2.486440413769e+02[au]  
+Etot              = -2.485831859148e+02[au]  
+Efree             = -2.485831859148e+02[au]  
+Ekin              = +2.735893730704e+00[au]  
+Ehart             = +3.892158561683e+02[au]  
+Exc               = -7.582814339573e+01[au]  
+EVdw              = +0.000000000000e+00[au]  
+Eself             = +7.075720181173e+02[au]  
+EIonSR            = +6.426107280555e-12[au]  
+Ecor              = -2.513190796455e+02[au]  
+Fermi             = +2.749184653674e-01[au]  
+Total charge      = +2.560000000000e+02[au]  
+HOMO              = +7.480912547267e+00[eV]  
+norm(out-in)/norm(in) = +1.414636094790e-01
+Efree diff per atom   = +9.508665954514e-04
+Time for computing potential mixing in PWDFT is 5.06013748236e-05 [s]
+
+Total wall clock time for this SCF iteration = 3.42845053198 [s]
+
+*********************************************************************
+SCF iteration # 2
+*********************************************************************
+
+ >>>>>>>>> Calling serial  PPCG  ...
+eigMaxIter = 5 eigTolerance = 1e-06
+
+After 5 PPCG iterations the min res norm is 0.000907148284457. The max res norm is 0.0749726539477
+
+Time for iterSpinor       = 11  timeSpinor       = 0.47379179296
+Time for iterGemmT        = 6932  timeGemmT        = 0.127249846584
+Time for iterGemmN        = 3609  timeGemmN        = 0.0298218085227
+Time for iterTrsm         = 10  timeTrsm         = 0.000780321148341
+Time for iterPotrf        = 5  timePotrf        = 0.000744000164559
+Time for iterSyevd        = 1  timeSyevd        = 0.00287470786134
+Time for iterSygvd        = 640  timeSygvd        = 0.00693810783559
+Time for iterCPU2DCUCopy  = 1821  timeCPU2DCUCopy  = 1.48583022488
+Time for iterDCU2DCUCopy  = 3591  timeDCU2DCUCopy  = 0.00775782979326
+Time for iterOther        = 3119  timeOther        = 0.0295463499933
+Time for PPCG in PWDFT is 2.342749195
+
+
+Time for the eigensolver is 2.34429819694 [s]
+
+Time for ham.EigVal() in PWDFT is 1.65004166774e-06 [s]
+
+Time for computing occupation rate in PWDFT is 8.55022517499e-06 [s]
+
+Raw data, sum of density          = 255.999994014
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0439779711742 [s]
+
+Time for computing gradient density in PWDFT is 0.14437358045 [s]
+
+Time for computing XC potential in PWDFT is 0.374129443546 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0698767526483 [s]
+
+Time for computing total potential in PWDFT is 0.001353296655 [s]
+
+Time for computing energy in PWDFT is 0.00185213016812 [s]
+
+EfreeHarris       = -2.520291385039e+02[au]  
+Etot              = -2.519980408035e+02[au]  
+Efree             = -2.519980408035e+02[au]  
+Ekin              = +8.766437233516e-01[au]  
+Ehart             = +3.890134290439e+02[au]  
+Exc               = -7.602721196459e+01[au]  
+EVdw              = +0.000000000000e+00[au]  
+Eself             = +7.075720181173e+02[au]  
+EIonSR            = +6.426107280555e-12[au]  
+Ecor              = -2.528746845268e+02[au]  
+Fermi             = +2.117715143389e-01[au]  
+Total charge      = +2.560000000000e+02[au]  
+HOMO              = +5.762596472574e+00[eV]  
+norm(out-in)/norm(in) = +1.190559526203e-01
+Efree diff per atom   = +4.859015701522e-04
+Time for computing potential mixing in PWDFT is 9.3002745416e-07 [s]
+
+Total wall clock time for this SCF iteration = 3.11068407504 [s]
+
+*********************************************************************
+SCF iteration # 3
+*********************************************************************
+
+ >>>>>>>>> Calling serial  PPCG  ...
+eigMaxIter = 5 eigTolerance = 1e-06
+
+After 5 PPCG iterations the min res norm is 0.000120443688235. The max res norm is 0.0643352332385
+
+Time for iterSpinor       = 11  timeSpinor       = 0.472814856505
+Time for iterGemmT        = 6932  timeGemmT        = 0.126964289098
+Time for iterGemmN        = 3609  timeGemmN        = 0.0300730943709
+Time for iterTrsm         = 10  timeTrsm         = 0.00082625237701
+Time for iterPotrf        = 5  timePotrf        = 0.000748690275941
+Time for iterSyevd        = 1  timeSyevd        = 0.00283279673022
+Time for iterSygvd        = 640  timeSygvd        = 0.00699095954769
+Time for iterCPU2DCUCopy  = 1821  timeCPU2DCUCopy  = 1.48458856092
+Time for iterDCU2DCUCopy  = 3591  timeDCU2DCUCopy  = 0.00775931039243
+Time for iterOther        = 3119  timeOther        = 0.0295588007284
+Time for PPCG in PWDFT is 2.34089526477
+
+
+Time for the eigensolver is 2.34253883929 [s]
+
+Time for ham.EigVal() in PWDFT is 1.97005283553e-06 [s]
+
+Time for computing occupation rate in PWDFT is 7.26019788999e-06 [s]
+
+Raw data, sum of density          = 255.999995307
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0439852613781 [s]
+
+Time for computing gradient density in PWDFT is 0.145040418516 [s]
+
+Time for computing XC potential in PWDFT is 0.374067111872 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0700507773727 [s]
+
+Time for computing total potential in PWDFT is 0.00136354693677 [s]
+
+Time for computing energy in PWDFT is 0.00185882033838 [s]
+
+EfreeHarris       = -2.520570509287e+02[au]  
+Etot              = -2.520416081214e+02[au]  
+Efree             = -2.520416081214e+02[au]  
+Ekin              = +1.243342677638e+00[au]  
+Ehart             = +3.885570999429e+02[au]  
+Exc               = -7.648441900471e+01[au]  
+EVdw              = +0.000000000000e+00[au]  
+Eself             = +7.075720181173e+02[au]  
+EIonSR            = +6.426107280555e-12[au]  
+Ecor              = -2.532849507991e+02[au]  
+Fermi             = +1.946246986251e-01[au]  
+Total charge      = +2.560000000000e+02[au]  
+HOMO              = +5.296007847297e+00[eV]  
+norm(out-in)/norm(in) = +9.948434471292e-02
+Efree diff per atom   = +2.412938639176e-04
+Time for computing potential mixing in PWDFT is 8.10017809272e-07 [s]
+
+Total wall clock time for this SCF iteration = 3.11704207725 [s]
+XC_HYB_GGA_XC_HSE06  XCId = 428
+
+XC_HYB_GGA_XC_HSE06  XId_ CId_ = 101 130
+Re-calculate XC 
+ call LIBXC PBE for HSE06 XC 
+Time for AddMulSpinorEXX with GPU  is 1.76027863838 [s]
+
+Time for GPU calculate vexxProjector  0.215511867282 [s]
+
+Time for updating Phi related variable is 1.99806780905 [s]
+
+Time for computing the EXX energy is 0.758145714906 [s]
+
+
+*********************************************************************
+Phi iteration # 1
+*********************************************************************
+
+Time for GPU  Anderson mixing in PWDFT is 0.151571545415 [s]
+
+Raw data, sum of density          = 255.999995307
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0445359562873 [s]
+
+Time for computing gradient density in PWDFT is 0.144656248114 [s]
+
+ call LIBXC PBE for HSE06 XC 
+Time for computing XC potential in PWDFT is 0.885477063755 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0699331942014 [s]
+
+Time for computing total potential in PWDFT is 0.00189063120342 [s]
+
+Time for AddMulSpinorEXX with GPU  is 1.75948268682 [s]
+
+Time for GPU calculate vexxProjector  0.132281992948 [s]
+
+GPU Time for updating Phi related variable is 1.90846000197 [s]
+
+ >>>>>>>>> Calling serial  PPCG  ...
+eigMaxIter = 5 eigTolerance = 1e-06
+
+After 5 PPCG iterations the min res norm is 0.000549327849024. The max res norm is 0.00373972275854
+
+Time for iterSpinor       = 11  timeSpinor       = 1.20633073431
+Time for iterGemmT        = 6933  timeGemmT        = 0.128329855841
+Time for iterGemmN        = 3609  timeGemmN        = 0.0298069070268
+Time for iterTrsm         = 11  timeTrsm         = 0.000919804922887
+Time for iterPotrf        = 6  timePotrf        = 0.00092775511439
+Time for iterSyevd        = 1  timeSyevd        = 0.0028711577761
+Time for iterSygvd        = 640  timeSygvd        = 0.00673627264041
+Time for iterCPU2DCUCopy  = 1823  timeCPU2DCUCopy  = 1.48588165625
+Time for iterDCU2DCUCopy  = 3591  timeDCU2DCUCopy  = 0.00780750179547
+Time for iterOther        = 3119  timeOther        = 0.0298493286828
+Time for PPCG in PWDFT is 3.07632315437
+
+
+Time for the eigensolver is 3.07785662588 [s]
+
+Time for ham.EigVal() in PWDFT is 1.37003371492e-06 [s]
+
+Time for computing occupation rate in PWDFT is 6.80019729771e-06 [s]
+
+Raw data, sum of density          = 255.999995265
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0441028145578 [s]
+
+Time for computing gradient density in PWDFT is 0.144239096815 [s]
+
+ call LIBXC PBE for HSE06 XC 
+Time for computing XC potential in PWDFT is 0.879933223609 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0698379616078 [s]
+
+Time for computing total potential in PWDFT is 0.00135051658435 [s]
+
+EfreeHarris       = -2.657838825020e+02[au]  
+Etot              = -2.653747203585e+02[au]  
+Efree             = -2.653747203585e+02[au]  
+Ekin              = -4.306745819121e+00[au]  
+Ehart             = +3.890058940824e+02[au]  
+Exc               = -6.400925281291e+01[au]  
+EVdw              = +0.000000000000e+00[au]  
+Eself             = +7.075720181173e+02[au]  
+EIonSR            = +6.426107280555e-12[au]  
+Ecor              = -2.610679745394e+02[au]  
+Fermi             = +1.972263666780e-01[au]  
+Total charge      = +2.560000000000e+02[au]  
+HOMO              = +5.366802841567e+00[eV]  
+Total wall clock time for this Phi iteration = 7.99294283443 [s]
+Time for AddMulSpinorEXX with GPU  is 1.7236589565 [s]
+
+Time for GPU calculate vexxProjector  0.129996021031 [s]
+
+ GPU Time for updating Phi related variable is 1.87003795127 [s]
+
+Time for computing the EXX energy is 0.759817460188 [s]
+
+
+Fock energy       = -1.342311179049e+01[au]  
+Etot(with fock)   = -2.519516085680e+02[au]  
+Efree(with fock)  = -2.519516085680e+02[au]  
+dExx              = +3.513488274724e-03[au]  
+
+*********************************************************************
+Phi iteration # 2
+*********************************************************************
+
+  Rank of dfmat = 1                   
+Time for GPU  Anderson mixing in PWDFT is 0.36450533288 [s]
+
+Raw data, sum of density          = 255.99999536
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.043656162452 [s]
+
+Time for computing gradient density in PWDFT is 0.144297278384 [s]
+
+ call LIBXC PBE for HSE06 XC 
+Time for computing XC potential in PWDFT is 0.880877329182 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0699367642956 [s]
+
+Time for computing total potential in PWDFT is 0.00185057013005 [s]
+
+Time for AddMulSpinorEXX with GPU  is 1.72344894081 [s]
+
+Time for GPU calculate vexxProjector  0.132061456985 [s]
+
+GPU Time for updating Phi related variable is 1.87193582268 [s]
+
+ >>>>>>>>> Calling serial  PPCG  ...
+eigMaxIter = 5 eigTolerance = 1e-06
+
+After 5 PPCG iterations the min res norm is 9.41228679553e-05. The max res norm is 0.00179730484535
+
+Time for iterSpinor       = 11  timeSpinor       = 1.19939354643
+Time for iterGemmT        = 6932  timeGemmT        = 0.127333469121
+Time for iterGemmN        = 3609  timeGemmN        = 0.0299028997979
+Time for iterTrsm         = 10  timeTrsm         = 0.000798281602329
+Time for iterPotrf        = 5  timePotrf        = 0.0007559304795
+Time for iterSyevd        = 1  timeSyevd        = 0.00280756605207
+Time for iterSygvd        = 640  timeSygvd        = 0.00687047615065
+Time for iterCPU2DCUCopy  = 1821  timeCPU2DCUCopy  = 1.4858556456
+Time for iterDCU2DCUCopy  = 3591  timeDCU2DCUCopy  = 0.00790133383998
+Time for iterOther        = 3119  timeOther        = 0.0300281834498
+Time for PPCG in PWDFT is 3.06840420987
+
+
+Time for the eigensolver is 3.06998736275 [s]
+
+Time for ham.EigVal() in PWDFT is 1.30003900267e-06 [s]
+
+Time for computing occupation rate in PWDFT is 6.47018896416e-06 [s]
+
+Raw data, sum of density          = 255.999995317
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0440904842253 [s]
+
+Time for computing gradient density in PWDFT is 0.144066022127 [s]
+
+ call LIBXC PBE for HSE06 XC 
+Time for computing XC potential in PWDFT is 0.880438627282 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0698960031878 [s]
+
+Time for computing total potential in PWDFT is 0.00134337638156 [s]
+
+EfreeHarris       = -2.655989660343e+02[au]  
+Etot              = -2.652897905114e+02[au]  
+Efree             = -2.652897905114e+02[au]  
+Ekin              = -4.333147250463e+00[au]  
+Ehart             = +3.890106405024e+02[au]  
+Exc               = -6.400722816116e+01[au]  
+EVdw              = +0.000000000000e+00[au]  
+Eself             = +7.075720181173e+02[au]  
+EIonSR            = +6.426107280555e-12[au]  
+Ecor              = -2.609566432609e+02[au]  
+Fermi             = +1.879409131686e-01[au]  
+Total charge      = +2.560000000000e+02[au]  
+HOMO              = +5.114132779655e+00[eV]  
+Total wall clock time for this Phi iteration = 8.11594371599 [s]
+Time for AddMulSpinorEXX with GPU  is 1.72586854636 [s]
+
+Time for GPU calculate vexxProjector  0.131191283406 [s]
+
+ GPU Time for updating Phi related variable is 1.87346538411 [s]
+
+Time for computing the EXX energy is 0.758313779457 [s]
+
+
+Fock energy       = -1.343939521711e+01[au]  
+Etot(with fock)   = -2.518503952942e+02[au]  
+Efree(with fock)  = -2.518503952942e+02[au]  
+dExx              = +1.211619002556e-03[au]  
+
+*********************************************************************
+Phi iteration # 3
+*********************************************************************
+
+  Rank of dfmat = 2                   
+Time for GPU  Anderson mixing in PWDFT is 0.380109575533 [s]
+
+Raw data, sum of density          = 255.999995339
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0438573979045 [s]
+
+Time for computing gradient density in PWDFT is 0.144357700017 [s]
+
+ call LIBXC PBE for HSE06 XC 
+Time for computing XC potential in PWDFT is 0.880616092109 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0698795227363 [s]
+
+Time for computing total potential in PWDFT is 0.00184729002649 [s]
+
+Time for AddMulSpinorEXX with GPU  is 1.72534209209 [s]
+
+Time for GPU calculate vexxProjector  0.131036929233 [s]
+
+GPU Time for updating Phi related variable is 1.87273082422 [s]
+
+ >>>>>>>>> Calling serial  PPCG  ...
+eigMaxIter = 5 eigTolerance = 1e-06
+
+After 5 PPCG iterations the min res norm is 7.50519477997e-05. The max res norm is 0.00102164562863
+
+Time for iterSpinor       = 11  timeSpinor       = 1.19808142085
+Time for iterGemmT        = 6932  timeGemmT        = 0.129630621072
+Time for iterGemmN        = 3609  timeGemmN        = 0.0298911201389
+Time for iterTrsm         = 10  timeTrsm         = 0.000784591247793
+Time for iterPotrf        = 5  timePotrf        = 0.000749140293919
+Time for iterSyevd        = 1  timeSyevd        = 0.00285379729758
+Time for iterSygvd        = 640  timeSygvd        = 0.00685861587408
+Time for iterCPU2DCUCopy  = 1821  timeCPU2DCUCopy  = 1.48361282465
+Time for iterDCU2DCUCopy  = 3591  timeDCU2DCUCopy  = 0.00784040192957
+Time for iterOther        = 3119  timeOther        = 0.0300714844198
+Time for PPCG in PWDFT is 3.06665712254
+
+
+Time for the eigensolver is 3.06827473636 [s]
+
+Time for ham.EigVal() in PWDFT is 1.50004052557e-06 [s]
+
+Time for computing occupation rate in PWDFT is 6.28017005511e-06 [s]
+
+Raw data, sum of density          = 255.999995231
+Expected sum of density           = 256
+Raw data, sum of adjusted density = 256
+Time for computing density in PWDFT is 0.0442500385398 [s]
+
+Time for computing gradient density in PWDFT is 0.144100753067 [s]
+
+ call LIBXC PBE for HSE06 XC 
+Time for computing XC potential in PWDFT is 0.88034084464 [s]
+
+Time for computing Hartree potential in PWDFT is 0.0699448244995 [s]
+
+Time for computing total potential in PWDFT is 0.00135035658604 [s]
+
+EfreeHarris       = -2.656034364736e+02[au]  
+Etot              = -2.656766197646e+02[au]  
+Efree             = -2.656766197646e+02[au]  
+Ekin              = -4.772060555375e+00[au]  
+Ehart             = +3.891531204561e+02[au]  
+Exc               = -6.399161877077e+01[au]  
+EVdw              = +0.000000000000e+00[au]  
+Eself             = +7.075720181173e+02[au]  
+EIonSR            = +6.426107280555e-12[au]  
+Ecor              = -2.609045592092e+02[au]  
+Fermi             = +1.851082068245e-01[au]  
+Total charge      = +2.560000000000e+02[au]  
+HOMO              = +5.037050913203e+00[eV]  
+Total wall clock time for this Phi iteration = 8.13872245296 [s]
+Time for AddMulSpinorEXX with GPU  is 1.72630282812 [s]
+
+Time for GPU calculate vexxProjector  0.130708840341 [s]
+
+ GPU Time for updating Phi related variable is 1.87342941314 [s]
+
+Time for computing the EXX energy is 0.756166761304 [s]
+
+
+Fock energy       = -1.345643581859e+01[au]  
+Etot(with fock)   = -2.522201839460e+02[au]  
+Efree(with fock)  = -2.522201839460e+02[au]  
+dExx              = +1.266353268425e-03[au]  
+Time for using pcdiis method is 70181.2683552 [s]
+
+Time for computing the local potential contribution of the force is 0.308747402625 [s]
+
+Time for computing the nonlocal potential contribution of the force is 21.9048877891 [s]
+
+Total time for FFT in the computation of the force is 18.0096809446 [s]
+
+
+*********************************************************************
+Energy
+*********************************************************************
+
+! EfreeHarris     = -2.656034364736e+02[au]  
+! Etot            = -2.522201839460e+02[au]  
+! Exc             = -6.399161877077e+01[au]  
+! Exx             = -1.345643581859e+01[au]  
+! Efree           = -2.522201839460e+02[au]  
+! Evdw            = +0.000000000000e+00[au]  
+! Eext              = +0.000000000000e+00[au]  
+! Fermi           = +1.851082068245e-01[au]  
+! HOMO            = +5.037050913203e+00[eV]  
+
+*********************************************************************
+Atomic Force
+*********************************************************************
+
+atom    0     force   +3.529712801794e-03 +3.392529926468e-03 -2.501753616226e-03 
+atom    1     force   +3.359913344355e-03 -2.525220230981e-03 +3.539289634218e-03 
+atom    2     force   +3.156341985853e-03 +2.095980554452e-03 -6.887703426064e-03 
+atom    3     force   +7.023139827346e-03 -1.999685293601e-03 -3.196588376870e-03 
+atom    4     force   +5.025045137081e-03 +2.360662711100e-03 +5.282097376091e-03 
+atom    5     force   -2.023882698744e-03 -2.873850825275e-03 +4.568744134626e-05 
+atom    6     force   -1.144242397349e-03 -3.577083751519e-03 +1.971813850541e-03 
+atom    7     force   +9.952104686802e-04 -4.034663101721e-03 -2.612654965639e-03 
+atom    8     force   +1.243975502709e-03 -5.318005354151e-04 -2.587021166750e-03 
+atom    9     force   +7.966384143375e-03 -2.861188413727e-03 +2.983395528129e-04 
+atom    10    force   -3.556174143616e-03 +2.667575327653e-03 +3.935391834831e-03 
+atom    11    force   +1.696186150592e-03 +2.803452240619e-04 +6.350677915950e-03 
+atom    12    force   +4.056442759471e-04 -3.390149410587e-03 -1.167054839458e-03 
+atom    13    force   -1.979133951482e-03 +3.235592749369e-04 +3.772247504938e-03 
+atom    14    force   -7.693644741792e-03 -1.991433091281e-03 -3.948699059875e-04 
+atom    15    force   -7.393477393488e-03 -9.401283412941e-04 -1.945461197436e-03 
+atom    16    force   -6.727794801373e-03 -6.016614749049e-05 -7.355185808349e-03 
+atom    17    force   -5.208378263973e-03 -2.306538265632e-03 +2.629939942322e-03 
+atom    18    force   -2.324305714741e-03 +1.240666081020e-03 +3.873456048558e-03 
+atom    19    force   -1.272151298398e-03 -2.196720546597e-04 +3.035060071242e-03 
+atom    20    force   +3.844475016782e-04 +2.103172308698e-03 -2.031229761231e-03 
+atom    21    force   +2.450714165050e-03 +5.540468069818e-03 +2.766335705006e-03 
+atom    22    force   -4.722401935778e-03 -3.140927675510e-03 -1.079470605857e-03 
+atom    23    force   +3.918390405229e-03 -4.086631202425e-04 +1.611496168847e-03 
+atom    24    force   +2.069444664229e-03 -1.857969271156e-03 +3.041325600161e-04 
+atom    25    force   -2.609530693573e-03 +1.483855872507e-03 -2.372552432026e-03 
+atom    26    force   -1.883259581531e-03 +1.603544081759e-03 -8.240971468655e-03 
+atom    27    force   -4.568339868138e-03 -5.907368336903e-03 +2.469248957562e-03 
+atom    28    force   +9.071841821077e-04 +9.562478679685e-03 +4.894744640761e-03 
+atom    29    force   +6.020360791486e-03 -6.590219336286e-04 -1.837462360880e-03 
+atom    30    force   +8.291880570076e-03 +1.516536316684e-03 -1.140230578074e-03 
+atom    31    force   +2.845613770068e-03 -1.847184347669e-03 +2.980922664191e-03 
+atom    32    force   -4.206118024504e-03 +3.667579464452e-03 +6.872653315595e-03 
+atom    33    force   +2.371036212606e-04 -7.437846525661e-03 -2.640244559893e-03 
+atom    34    force   -4.080513966121e-03 +5.358754858940e-03 -3.924348991715e-03 
+atom    35    force   -2.806005605246e-03 -1.302948844895e-03 +2.911918795427e-03 
+atom    36    force   +2.542706824739e-03 +9.378397669401e-04 +1.712874918217e-03 
+atom    37    force   -9.694086998781e-04 +2.302685138207e-03 +2.987494864082e-03 
+atom    38    force   -5.525459157388e-04 +3.159196252599e-03 -7.083307469003e-03 
+atom    39    force   +1.579744002779e-03 -9.393248722584e-04 -5.348790103949e-03 
+atom    40    force   +1.010128676100e-03 +8.567628263669e-03 -3.007424847639e-03 
+atom    41    force   -6.648977973686e-03 -3.109419289062e-03 -1.204547635955e-03 
+atom    42    force   +1.725940497541e-03 +4.953073735508e-03 -1.534828766440e-03 
+atom    43    force   -3.895752840868e-03 -6.941908805796e-03 +2.269166966476e-03 
+atom    44    force   +6.729251924404e-03 +3.995502550170e-04 -8.078749827978e-03 
+atom    45    force   +2.656168897244e-03 -1.449123587928e-03 -3.304429067024e-03 
+atom    46    force   +1.125413219691e-03 +6.485632426219e-04 +4.874634776415e-03 
+atom    47    force   +6.663384108493e-03 -8.389129834910e-04 +5.627472045698e-03 
+atom    48    force   +3.466979729664e-03 +2.629967319799e-03 -4.518848590298e-04 
+atom    49    force   +2.212062630937e-03 -5.343198345081e-05 +3.515651669603e-04 
+atom    50    force   -2.786245954816e-03 -1.507106730198e-03 +3.149843211314e-03 
+atom    51    force   +1.540442396571e-03 -9.156097608068e-04 -2.167620488561e-03 
+atom    52    force   +9.257576334221e-04 -3.509945480645e-04 -5.657820926250e-03 
+atom    53    force   -5.064981366760e-03 -6.468754511205e-03 +1.949887120572e-04 
+atom    54    force   -2.109258912309e-03 +6.345216322820e-03 -5.246379900363e-04 
+atom    55    force   +1.278616924672e-03 +4.386201665209e-03 +6.410327369346e-03 
+atom    56    force   +3.644146440518e-03 +6.374153291706e-04 +9.907802232299e-03 
+atom    57    force   +8.647295567867e-03 -2.111061824728e-03 +1.596798071969e-03 
+atom    58    force   -1.979175769116e-03 +3.011038306366e-03 -3.687391194177e-03 
+atom    59    force   +1.987095694854e-03 -1.822779999156e-03 -3.018151790029e-03 
+atom    60    force   -4.600323467900e-04 -6.493817902718e-03 +5.045314395773e-03 
+atom    61    force   -4.294879490025e-03 -2.209510741299e-04 -1.881297909926e-03 
+atom    62    force   -1.048156718398e-02 -2.468083479364e-03 -3.015608991940e-03 
+atom    63    force   -1.548901306710e-03 +4.257223915775e-03 -7.494820743794e-03 
+
+force for centroid  : +4.270745637889e-03 -1.314826052659e-04 -5.702379961978e-03 
+Max force magnitude : +1.118251243172e-02
+
+
+Output the structure information
+! Total time for the SCF iteration = 75.2125261536 [s]
